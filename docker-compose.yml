@@ -21,8 +21,11 @@ services:
     depends_on:
       - db
     environment:
-      API_URL: http://a4f674319ba4c4ecca948981c668634a-459882564.us-east-1.elb.amazonaws.com
-      DATABASE_URL: postgres://myuser:mypassword@db:5432/mydatabase
+      # These environment variables are loaded from the .env file
+      API_URL: ${API_URL}
+      DOMAIN: ${DOMAIN}
+      API_KEY: ${API_KEY}
+      DATABASE_URL: ${DATABASE_URL}
     volumes:
       - ./app:/app  # Local 'app' directory mounted to container's /app directory
     ports:
@@ -31,4 +34,3 @@ services:
 
 volumes:
   postgres_data:
-
