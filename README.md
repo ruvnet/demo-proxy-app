@@ -15,8 +15,8 @@ The primary purpose of this application is to forward requests to a specified AP
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-repo/api-proxy.git
-cd api-proxy
+git clone https://github.com/Faction-V/demo-proxy-app
+cd demo-proxy-app
 ```
 
 2. Install the required dependencies:
