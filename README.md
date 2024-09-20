@@ -55,18 +55,7 @@ Contributions are welcome! Please follow the standard GitHub workflow:
 3. Make your changes
 4. Open a pull request
 
-For more information on contributing, see the [Contributing section on MakeAReadme.com](https://www.makeareadme.com/#contributing).
-
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgments
-
-This project utilizes the following libraries:
-
-- [FastAPI](https://fastapi.tiangolo.com/) - Modern, fast (high-performance), web framework for building APIs with Python.
-- [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation and settings management using Python type annotations.
-- [HTTPX](https://www.python-httpx.org/) - A next-generation HTTP client for Python.
-
-Please refer to the [GitHub repository](https://github.com/your-repo/api-proxy) for the latest updates and additional information.
