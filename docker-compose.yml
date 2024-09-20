@@ -6,8 +6,6 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    depends_on:
-      - db
     environment:
       # These environment variables are loaded from the .env file
       API_URL: ${API_URL}
@@ -19,6 +17,3 @@ services:
     ports:
       - "8000:8000"
     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-
-volumes:
-  postgres_data:
