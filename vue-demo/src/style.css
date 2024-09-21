@@ -1,0 +1,26 @@
+:root {
+  margin: 0 auto;
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* 
+  --capitol-accent-color: red;
+  --capitol-border-radius: 4px;
+  --capitol-font-family: 'courier new', monospace;
+  --capitol-prompt-background-color: rgb(70, 46, 107);
+  --capitol-sidebar-background-color: rgb(31, 70, 88);
+  --capitol-story-background-color: rgb(85, 56, 56);
+  */
+}
+
+.title {
+  padding: 1rem;
+}

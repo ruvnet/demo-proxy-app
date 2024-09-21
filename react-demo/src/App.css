@@ -1,0 +1,16 @@
+#root {
+  /* --capitol-accent-color: red;
+  --capitol-font-family: 'courier new', monospace;
+  --capitol-border-radius: 0;
+  --capitol-prompt-background-color: rgb(70, 46, 107);
+  --capitol-sidebar-background-color: rgb(31, 70, 88);
+  --capitol-story-background-color: rgb(85, 56, 56); */
+
+  margin: 0 auto;
+  padding: 2rem;  
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  color: #000;
+  color-scheme: initial;
+}
