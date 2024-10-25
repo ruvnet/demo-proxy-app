@@ -1,6 +1,9 @@
-// scripts/generate-vercel-json.js
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
 
 const rootDir = process.cwd();
 const templatePath = path.join(rootDir, 'vercel.template.json');

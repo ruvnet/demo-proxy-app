@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@capitol.ai/react": "^0.0.20",
+    "dotenv": "^16.4.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

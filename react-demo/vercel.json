@@ -1,9 +1,0 @@
-{
-    "rewrites": [
-      {
-        "source": "/proxy/api/capitolai/:path*",
-        "destination": "https://integration-demo.capitol.ai/api/v1/:path*"
-      }
-    ]
-  }
-  
