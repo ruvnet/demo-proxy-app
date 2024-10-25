@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from "fs";
 
 const template = fs.readFileSync('vercel.template.json', 'utf-8');
 const VITE_API_URL = process.env.VITE_API_URL;
