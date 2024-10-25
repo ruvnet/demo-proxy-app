@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/proxy/api/capitolai/:path*",
+      "destination": "${VITE_API_URL}/api/v1/:path*"
+    }
+  ]
+}
