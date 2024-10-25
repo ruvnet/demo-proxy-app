@@ -6,7 +6,7 @@
   "scripts": {
     "generate:vercel-json": "node scripts/generate-vercel-json.js",
     "dev": "vite",
-    "build": "npm run generate:vercel-json && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
