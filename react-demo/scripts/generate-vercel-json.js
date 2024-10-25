@@ -1,18 +1,24 @@
 // scripts/generate-vercel-json.js
 import fs from 'fs';
+import path from 'path';
 
-const template = fs.readFileSync('vercel.template.json', 'utf-8');
-console.log("🚀 ~ template:", template)
-const VITE_API_URL = process.env.VITE_API_URL;
+const rootDir = process.cwd();
+const templatePath = path.join(rootDir, 'vercel.template.json');
+const outputPath = path.join(rootDir, 'vercel.json');
 
-console.log("🚀 ~ VITE_API_URL:", VITE_API_URL)
+try {
+  const template = fs.readFileSync(templatePath, 'utf-8');
+  const VITE_API_URL = process.env.VITE_API_URL;
 
-if (!VITE_API_URL) {
-  throw new Error('VITE_API_URL it is not defined');
+  if (!VITE_API_URL) {
+    throw new Error('VITE_API_URL no está definida');
+  }
+
+  const content = template.replace('${VITE_API_URL}', VITE_API_URL);
+
+  fs.writeFileSync(outputPath, content);
+  console.log('✅ vercel.json generado exitosamente en', outputPath);
+} catch (error) {
+  console.error('❌ Error al generar vercel.json:', error);
+  process.exit(1);
 }
-
-const content = template.replace('${VITE_API_URL}', VITE_API_URL);
-console.log("🚀 ~ content:", content)
-
-fs.writeFileSync('vercel.json', content);
-console.log('✅ vercel.json generated successfully');
