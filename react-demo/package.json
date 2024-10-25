@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "generate:vercel-json": "node generate-vercel-json.js",
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run generate:vercel-json && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
