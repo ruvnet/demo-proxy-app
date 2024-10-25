@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "generate:vercel-json": "node scripts/generate-vercel-json.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
