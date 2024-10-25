@@ -6,6 +6,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
   const API_URL = `${env.VITE_API_URL}/api/v1`;
 
+  console.log("🚀 ~ defineConfig ~ API_URL:", API_URL)
+  
   return {
     server: {
       proxy: {
