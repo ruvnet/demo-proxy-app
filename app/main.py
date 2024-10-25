@@ -28,6 +28,11 @@ def add_custom_headers(headers):
         "X-API-Key": X_API_KEY,
         "X-User-ID": "1"
     })
+
+    print("printed X_DOMAIN", X_DOMAIN)
+    print("printed X_API_KEY", X_API_KEY)
+    print("printed FORWARD_URL", FORWARD_URL)
+    print("printed headers", headers)
     return headers
 
 # POST endpoint for forwarding the specific payload
