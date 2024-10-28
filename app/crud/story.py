@@ -2,6 +2,7 @@ from typing import List, Optional
 from uuid import UUID
 from sqlalchemy.orm import Session
 from sqlalchemy import cast, String
+from fastapi.encoders import jsonable_encoder
 from app.crud.base import CRUDBase
 from app.models.stories import Story
 from app.schemas.stories import StoryCreate, StoryUpdate
