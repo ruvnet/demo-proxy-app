@@ -10,3 +10,6 @@ class Base:
     @declared_attr
     def __tablename__(cls) -> str:
         return cls.__name__.lower()
+
+    def __repr__(self):
+        return f"<{self.__class__.__name__}(id={self.id})>"

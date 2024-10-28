@@ -1,1 +1,3 @@
-# Initialize models package
+from .stories import Story
+
+__all__ = ["Story"]
