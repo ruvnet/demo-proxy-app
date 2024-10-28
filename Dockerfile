@@ -13,12 +13,9 @@ RUN pip install -r requirements.txt
 # Copy the rest of the code
 COPY . .
 
-# Install the app package
-# RUN pip install -e .
-
 # Set Python path and expose port
 ENV PYTHONPATH=/app
 EXPOSE 8000
 
 # Development mode uses reload
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
