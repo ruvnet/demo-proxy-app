@@ -5,8 +5,12 @@ import httpx
 import json
 from fastapi.middleware.cors import CORSMiddleware
 import logging
-from app.core.config import Settings
-from app.api.v1.endpoints import (
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).parent.parent))
+
+from .core.config import Settings
+from .api.v1.endpoints import (
     auth,
     chat,
     drive,

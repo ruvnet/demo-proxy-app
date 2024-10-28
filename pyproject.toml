@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = "Capitol AI Services API"
+authors = ["Capitol AI <support@capitol.ai>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.68.0"
+uvicorn = "^0.15.0"
+httpx = "^0.23.0"
+pydantic = "^2.0.0"
+pydantic-settings = "^2.0.0"
+sqlalchemy = "^1.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
