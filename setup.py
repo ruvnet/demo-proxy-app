@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     packages=find_packages(),
     install_requires=[
-        "fastapi==0.103.0",  # Specific version that works with Pydantic v2
+        "fastapi>=0.103.0",  # This version supports Pydantic v2
         "uvicorn>=0.15.0",
         "httpx>=0.23.0",
         "pydantic>=2.0.0,<3.0.0",
