@@ -5,18 +5,13 @@ WORKDIR /app
 RUN pip install pip-tools
 
 # Copy requirements files
-COPY requirements.in .
-COPY setup.py .
+COPY requirements.txt .
 
-# Generate and install requirements
-RUN pip-compile requirements.in
-RUN pip-sync requirements.txt
+# Install requirements
+RUN pip install -r requirements.txt
 
 # Copy the rest of the code
 COPY . .
-
-# Install package in development mode
-RUN pip install -e .
 
 # Set Python path and expose port
 ENV PYTHONPATH=/app:$PYTHONPATH
