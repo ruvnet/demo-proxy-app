@@ -84,7 +84,7 @@ def add_custom_headers():
     }
 
 # POST endpoint for forwarding the specific payload
-@app.post("/forward-story")
+@app.post("/forward-story", operation_id=None)
 async def forward_story(payload: StoryPayload):
     headers = add_custom_headers()
     async with httpx.AsyncClient() as client:
@@ -100,7 +100,7 @@ async def forward_story(payload: StoryPayload):
         )
 
 # Catch-all route that forwards any request (with method, params, and body)
-@app.api_route("/api/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
+@app.api_route("/api/{path:path}", methods=["GET", "POST", "PUT", "DELETE", "PATCH"], operation_id=None)
 async def catch_all(request: Request, path: str):
     # Construct the full URL to forward the request
     forward_url = f"{FORWARD_URL}/api/{path}"

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.schemas.stories import StoryResponse, StoryListResponse, StoryCreate, StoryUpdate
 from app.api.deps import get_db
 from app.api import deps
-from app.crud import story as crud
+from app.crud.story import story
 
 router = APIRouter()
 
@@ -22,7 +22,7 @@ async def get_stories(
     current_user = Depends(deps.get_current_user)
 ):
     """Fetch a list of stories with pagination and sorting"""
-    stories = crud.story.get_multi(
+    stories = story.get_multi(
         db,
         search=search_value,
         limit=limit,
@@ -39,9 +39,9 @@ async def get_stories(
 
 @router.post("/stories", response_model=StoryResponse)
 async def create_story(
-    story: StoryCreate,
+    story_in: StoryCreate,
     db: Session = Depends(get_db),
     current_user = Depends(deps.get_current_user)
 ):
     """Create a new story"""
-    return crud.story.create(db, obj_in=story, user_id=current_user.id)
+    return story.create(db, obj_in=story_in, user_id=current_user.id)
