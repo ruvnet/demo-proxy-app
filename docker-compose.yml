@@ -12,7 +12,6 @@ services:
       DOMAIN: ${DOMAIN}
       API_KEY: ${API_KEY}
     volumes:
-      - ./app:/app  # Local 'app' directory mounted to container's /app directory
+      - .:/app  # Mount the entire directory
     ports:
       - "8000:8000"
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
