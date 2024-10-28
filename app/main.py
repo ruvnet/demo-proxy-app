@@ -3,14 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import httpx
 import json
-from fastapi.middleware.cors import CORSMiddleware
 import logging
 import sys
 from pathlib import Path
+
+# Add the parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from .core.config import Settings
-from .api.v1.endpoints import (
+# Use absolute imports
+from app.core.config import Settings
+from app.api.v1.endpoints import (
     auth,
     chat,
     drive,
