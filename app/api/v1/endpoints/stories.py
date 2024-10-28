@@ -33,6 +33,7 @@ async def get_stories(
     )
     return {
         "stories": stories,
+        "matching_user_stories": stories,  # Add matching user stories
         "story_count": len(stories)
     }
 
