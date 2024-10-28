@@ -28,8 +28,14 @@ from app.api.v1.endpoints import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Load settings
+# Load settings 
 settings = Settings()
+
+# Get environment variables via settings
+FORWARD_URL = settings.API_URL
+X_DOMAIN = settings.DOMAIN 
+X_API_KEY = settings.API_KEY
+USER_ID = "1"  # Hardcoded user ID - consider moving to Settings
 
 app = FastAPI(
     title="Capitol AI Services API",
