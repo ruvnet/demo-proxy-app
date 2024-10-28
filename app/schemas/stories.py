@@ -1,45 +1,56 @@
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from uuid import UUID
 from datetime import datetime
 from pydantic import BaseModel
-from .blocks import TextBlock, ImageBlock, MetricsBlock, ChartBlock, LinkPreviewBlock, TableBlock, QuoteBlock
+from .chapters import Chapter
 
-class StoryResponse(BaseModel):
+class StoryBase(BaseModel):
     id: UUID
-    headline: dict
     version: str
-    authors: dict
+    headline: Dict[str, Any]
+    authors: Dict[str, Any]
+    chapters: List[Chapter]
+    theme: Optional[str] = None
+    palette: Optional[str] = None
+    is_public: bool = False
+    is_active: bool = True
+    is_llm_generating: Optional[bool] = None
+    story_plan: Optional[str] = None
+    topics: List[str] = []
+    processed_llm_event_ids: Dict = {}
+    unfurl_image_url: Optional[str] = None
+    capitol_rank: Optional[Dict] = {}
+    active_section_index: Optional[int] = None
+    banner: Optional[Dict] = {}
+    parent_story_id: Optional[UUID] = None
+    current_depth_level: Optional[float] = None
+    project_id: Optional[UUID] = None
+
+class StoryCreate(StoryBase):
+    pass
+
+class StoryUpdate(StoryBase):
+    headline: Optional[Dict[str, Any]] = None
+    authors: Optional[Dict[str, Any]] = None
+    chapters: Optional[List[Chapter]] = None
+
+class StoryInDBBase(StoryBase):
     created_at: datetime
     updated_at: datetime
-    is_public: bool
-    views_count: int
-    like_count: int
-    
+    views_count: int = 0
+    like_count: int = 0
+    has_liked_by_me: bool = False
+
     class Config:
         from_attributes = True
+
+class Story(StoryInDBBase):
+    pass
+
+class StoryInDB(StoryInDBBase):
+    pass
 
 class StoryListResponse(BaseModel):
-    stories: List[StoryResponse]
+    stories: List[Story]
+    matching_user_stories: List[Story]
     story_count: int
-    
-    class Config:
-        from_attributes = True
-
-class StoryCreate(BaseModel):
-    headline: dict
-    authors: dict
-    is_public: bool = False
-    
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "headline": {"text": "My Story Title"},
-                "authors": {"primary": "John Doe"},
-                "is_public": False
-            }
-        }
-
-class StoryUpdate(BaseModel):
-    headline: Optional[dict] = None
-    authors: Optional[dict] = None
-    is_public: Optional[bool] = None
