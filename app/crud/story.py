@@ -1,4 +1,5 @@
 from typing import List, Optional
+from uuid import UUID
 from sqlalchemy.orm import Session
 from app.crud.base import CRUDBase
 from app.models.stories import Story
