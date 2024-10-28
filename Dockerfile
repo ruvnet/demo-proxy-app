@@ -13,8 +13,11 @@ RUN pip install -r requirements.txt
 # Copy the rest of the code
 COPY . .
 
+# Install the app package
+RUN pip install -e .
+
 # Set Python path and expose port
-ENV PYTHONPATH=/app:$PYTHONPATH
+ENV PYTHONPATH=/app
 EXPOSE 8000
 
 # Development mode uses reload
