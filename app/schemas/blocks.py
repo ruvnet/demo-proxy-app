@@ -1,6 +1,7 @@
 from typing import List, Optional, Union, Dict, Any
 from uuid import UUID
 from pydantic import BaseModel
+from .metrics import MetricItem
 
 class BlockBase(BaseModel):
     block_type: str
@@ -48,6 +49,11 @@ class LinkPreviewBlock(BlockBase):
 class TableBlock(BlockBase):
     block_type: str = "table"
     data: List[Union[Dict[str, Any], List[Union[int, float, str]]]]
+
+class MetricsBlock(BlockBase):
+    block_type: str = "metrics"
+    metrics: List[MetricItem]
+    llm_selection: Optional[bool] = False
 
 class QuoteBlock(BlockBase):
     block_type: str = "quote"
