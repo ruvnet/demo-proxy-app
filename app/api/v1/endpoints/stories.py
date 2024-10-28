@@ -4,8 +4,7 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 
 from app.schemas.stories import StoryResponse, StoryListResponse, StoryCreate, StoryUpdate
-from app.core.deps import get_db
-from app.api import deps
+from app.api.deps import get_db, get_current_user
 from app.crud import story as crud
 
 router = APIRouter()
