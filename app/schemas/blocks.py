@@ -30,3 +30,25 @@ class ImageBlock(BlockBase):
     image_style: Optional[str] = None
     is_new: Optional[bool] = None
     error_code: Optional[int] = None
+
+class ChartBlock(BlockBase):
+    block_type: str = "ai_generated_chart"
+    url: Optional[str] = None
+    llm_selection: Optional[bool] = False
+
+class LinkPreviewBlock(BlockBase):
+    block_type: str = "linkPreview"
+    title: str
+    description: str
+    url: str
+    image: str
+    favicon: str
+    llm_selection: Optional[bool] = False
+
+class TableBlock(BlockBase):
+    block_type: str = "table"
+    data: List[Union[Dict[str, Any], List[Union[int, float, str]]]]
+
+class QuoteBlock(BlockBase):
+    block_type: str = "quote"
+    quote: str
