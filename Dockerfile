@@ -1,11 +1,18 @@
 FROM python:3.10
 WORKDIR /app
 
-# Copy requirements first to leverage Docker cache
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Install pip-tools
+RUN pip install pip-tools
 
-# Copy source code
+# Copy requirements files
+COPY requirements.in .
+COPY setup.py .
+
+# Generate and install requirements
+RUN pip-compile requirements.in
+RUN pip-sync requirements.txt
+
+# Copy the rest of the code
 COPY . .
 
 # Install package in development mode
