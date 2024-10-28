@@ -50,6 +50,10 @@ class Story(StoryInDBBase):
 class StoryInDB(StoryInDBBase):
     pass
 
+# Response model for story creation
+class StoryResponse(BaseModel):
+    created: Dict[str, UUID]
+
 class StoryListResponse(BaseModel):
     stories: List[Story]
     matching_user_stories: List[Story]
