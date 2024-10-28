@@ -1,27 +1,64 @@
-import os
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import logging
-from fastapi import FastAPI, Request, Response
-from pydantic import BaseModel
-import httpx
-import json
-
-
-app = FastAPI()
+from app.core.config import Settings
+from app.api.v1.endpoints import (
+    auth,
+    chat,
+    drive,
+    events,
+    feedback,
+    integration,
+    membership,
+    projects,
+    reports,
+    sources,
+    stories,
+    storyplan,
+    tako,
+    twitter,
+    users
+)
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# Get the API URL and other variables from environment variables
-FORWARD_URL = os.getenv(
-    "API_URL", "https://example.com"
-)  # Replace with your default or environment variable
-X_DOMAIN = os.getenv(
-    "DOMAIN", "your-default-domain"
-)  # Replace with your domain or environment variable
-X_API_KEY = os.getenv(
-    "API_KEY", "your-default-api-key"
-)  # Replace with your API key or environment variable
-USER_ID = "1"  # Hardcoded user ID
+# Load settings
+settings = Settings()
+
+app = FastAPI(
+    title="Capitol AI Services API",
+    description="Middleware API for Capitol AI Services",
+    version="1.0.0",
+    openapi_url="/openapi.json"
+)
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Include routers
+app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
+app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
+app.include_router(drive.router, prefix="/api/v1", tags=["drive"])
+app.include_router(events.router, prefix="/api/v1", tags=["events"])
+app.include_router(feedback.router, prefix="/api/v1", tags=["feedback"])
+app.include_router(integration.router, prefix="/api/v1", tags=["integration"])
+app.include_router(membership.router, prefix="/api/v1", tags=["membership"])
+app.include_router(projects.router, prefix="/api/v1", tags=["projects"])
+app.include_router(reports.router, prefix="/api/v1", tags=["reports"])
+app.include_router(sources.router, prefix="/api/v1", tags=["sources"])
+app.include_router(stories.router, prefix="/api/v1", tags=["stories"])
+app.include_router(storyplan.router, prefix="/api/v1", tags=["storyplan"])
+app.include_router(tako.router, prefix="/api/v1", tags=["tako"])
+app.include_router(twitter.router, prefix="/api/v1", tags=["twitter"])
+app.include_router(users.router, prefix="/api/v1", tags=["users"])
 
 
 # Define the request model for the specific POST request
