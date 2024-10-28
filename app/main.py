@@ -12,9 +12,9 @@ import logging
 sys.path.append(str(Path(__file__).parent.parent))
 
 # Use relative imports
-from db.init_db import init_db
-from core.config import Settings
-from api.v1.endpoints import (
+from app.db.init_db import init_db
+from app.core.config import Settings
+from app.api.v1.endpoints import (
     auth, chat, drive, events, feedback, integration,
     membership, projects, reports, sources, stories,
     storyplan, tako, twitter, users
