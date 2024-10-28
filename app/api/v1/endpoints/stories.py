@@ -1,45 +1,47 @@
-from fastapi import APIRouter, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Query
 from typing import List, Optional
 from uuid import UUID
-import httpx
-import json
-from app.core.config import Settings
+from sqlalchemy.orm import Session
+
+from app.schemas.stories import StoryResponse, StoryListResponse, StoryCreate, StoryUpdate
+from app.core.deps import get_db
+from app.api import deps
+from app.crud import story as crud
 
 router = APIRouter()
-settings = Settings()
 
-@router.get("/stories", response_model=dict)
+@router.get("/stories", response_model=StoryListResponse)
 async def get_stories(
-    search_value: str,
+    db: Session = Depends(get_db),
+    search_value: str = Query(..., description="Search term"),
     limit: Optional[int] = None,
     page_size: Optional[int] = None,
     page_number: Optional[int] = None,
     sort_by: Optional[str] = None,
-    descending: Optional[bool] = None
+    descending: Optional[bool] = None,
+    current_user = Depends(deps.get_current_user)
 ):
     """Fetch a list of stories with pagination and sorting"""
-    headers = {
-        "X-Domain": settings.DOMAIN,
-        "X-API-Key": settings.API_KEY,
-        "Content-Type": "application/json",
-        "Accept": "application/json"
+    stories = crud.story.get_multi(
+        db,
+        search=search_value,
+        limit=limit,
+        page_size=page_size,
+        page_number=page_number,
+        sort_by=sort_by,
+        descending=descending,
+        user_id=current_user.id
+    )
+    return {
+        "stories": stories,
+        "story_count": len(stories)
     }
-    
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"{settings.API_URL}/stories",
-            headers=headers,
-            params={
-                "search_value": search_value,
-                "limit": limit,
-                "page_size": page_size,
-                "page_number": page_number,
-                "sort_by": sort_by,
-                "descending": descending
-            }
-        )
-        return Response(
-            content=response.text,
-            status_code=response.status_code,
-            headers=dict(response.headers)
-        )
+
+@router.post("/stories", response_model=StoryResponse)
+async def create_story(
+    story: StoryCreate,
+    db: Session = Depends(get_db),
+    current_user = Depends(deps.get_current_user)
+):
+    """Create a new story"""
+    return crud.story.create(db, obj_in=story, user_id=current_user.id)
