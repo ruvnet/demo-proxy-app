@@ -1,6 +1,8 @@
 from typing import List, Optional
 from uuid import UUID
 from sqlalchemy.orm import Session
+from sqlalchemy import cast, String
+from sqlalchemy.dialects.postgresql import JSONB
 from app.crud.base import CRUDBase
 from app.models.stories import Story
 from app.schemas.stories import StoryCreate, StoryUpdate
@@ -21,7 +23,10 @@ class CRUDStory(CRUDBase[Story, StoryCreate, StoryUpdate]):
         query = db.query(self.model)
         
         if search:
-            query = query.filter(self.model.headline['text'].astext.ilike(f"%{search}%"))
+            # Cast the JSON 'text' field to string and perform ILIKE search
+            query = query.filter(
+                cast(self.model.headline[('text')].astext, String).ilike(f"%{search}%")
+            )
             
         if sort_by:
             order_col = getattr(self.model, sort_by)
