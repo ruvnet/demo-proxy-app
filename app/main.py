@@ -7,6 +7,7 @@ import json
 import logging
 import sys
 from pathlib import Path
+from app.db.init_db import init_db
 
 # Add the parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -44,6 +45,10 @@ app = FastAPI(
     version="1.0.0",
     openapi_url="/openapi.json"
 )
+
+@app.on_event("startup")
+async def startup_event():
+    init_db()
 
 # Configure CORS
 app.add_middleware(

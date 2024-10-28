@@ -1,5 +1,5 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey, Float, Index
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, ForeignKey, Float, Index, JSON
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 from datetime import datetime
 import uuid
@@ -11,9 +11,9 @@ class Story(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     version = Column(String, nullable=False)
-    headline = Column(JSONB, nullable=False)  # Changed from JSON to JSONB
-    authors = Column(JSONB, nullable=False)   # Changed from JSON to JSONB 
-    chapters = Column(JSONB, nullable=False)  # Changed from JSON to JSONB
+    headline = Column(JSON, nullable=False)  # Changed from JSONB to JSON
+    authors = Column(JSON, nullable=False)   # Changed from JSONB to JSON
+    chapters = Column(JSON, nullable=False)  # Changed from JSONB to JSON
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     is_public = Column(Boolean, default=False)
