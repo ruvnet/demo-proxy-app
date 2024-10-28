@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # Install the app package
-RUN pip install -e .
+# RUN pip install -e .
 
 # Set Python path and expose port
 ENV PYTHONPATH=/app
