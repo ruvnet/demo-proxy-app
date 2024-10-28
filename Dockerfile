@@ -1,15 +1,19 @@
 FROM python:3.10
 WORKDIR /app
-COPY . .
 
-# Install the package in development mode
-RUN pip install -e .
-
+# Copy requirements first to leverage Docker cache
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Set Python path to include the app directory 
-ENV PYTHONPATH=/app:$PYTHONPATH
+# Copy source code
+COPY . .
 
-# Expose the port the app runs on
+# Install package in development mode
+RUN pip install -e .
+
+# Set Python path and expose port
+ENV PYTHONPATH=/app:$PYTHONPATH
 EXPOSE 8000
+
+# Development mode uses reload
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
