@@ -7,6 +7,15 @@ from app.models.stories import Story
 from app.schemas.stories import StoryCreate, StoryUpdate
 
 class CRUDStory(CRUDBase[Story, StoryCreate, StoryUpdate]):
+    def create(self, db: Session, *, obj_in: StoryCreate, user_id: str) -> Story:
+        # Override create method to handle user_id
+        obj_in_data = jsonable_encoder(obj_in)
+        db_obj = self.model(**obj_in_data)  # type: ignore
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return {"created": {"id": db_obj.id}}  # Match the StoryResponse model
+
     def get_multi(
         self,
         db: Session,
