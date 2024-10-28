@@ -6,16 +6,30 @@ from fastapi.encoders import jsonable_encoder
 from app.crud.base import CRUDBase
 from app.models.stories import Story
 from app.schemas.stories import StoryCreate, StoryUpdate
+import uuid
 
 class CRUDStory(CRUDBase[Story, StoryCreate, StoryUpdate]):
     def create(self, db: Session, *, obj_in: StoryCreate, user_id: str) -> Story:
-        # Override create method to handle user_id
+        # Convert the data to dict and handle UUID conversion
         obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model(**obj_in_data)  # type: ignore
+        
+        # Convert string UUID to UUID object
+        if 'id' in obj_in_data and isinstance(obj_in_data['id'], str):
+            obj_in_data['id'] = uuid.UUID(obj_in_data['id'])
+            
+        if 'parent_story_id' in obj_in_data and obj_in_data['parent_story_id'] and isinstance(obj_in_data['parent_story_id'], str):
+            obj_in_data['parent_story_id'] = uuid.UUID(obj_in_data['parent_story_id'])
+            
+        if 'project_id' in obj_in_data and obj_in_data['project_id'] and isinstance(obj_in_data['project_id'], str):
+            obj_in_data['project_id'] = uuid.UUID(obj_in_data['project_id'])
+
+        # Create the database object
+        db_obj = self.model(**obj_in_data)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
-        return {"created": {"id": db_obj.id}}  # Match the StoryResponse model
+        
+        return {"created": {"id": db_obj.id}}
 
     def get_multi(
         self,
