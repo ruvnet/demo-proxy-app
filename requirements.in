@@ -1,7 +1,7 @@
-fastapi>=0.100.0
+fastapi>=0.100.0,<0.104.0  # Explicitly require newer FastAPI that supports Pydantic v2
 uvicorn>=0.15.0
 httpx>=0.23.0
-pydantic>=2.0.0
+pydantic>=2.0.0,<3.0.0
 pydantic-settings>=2.0.0
 sqlalchemy>=1.4.0
 psycopg2-binary
