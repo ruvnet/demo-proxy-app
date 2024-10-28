@@ -116,3 +116,8 @@ async def catch_all(request: Request, path: str):
                 "Content-Type": response.headers.get("Content-Type", "text/plain")
             },
         )
+
+# Add this block to run the app using uvicorn
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
