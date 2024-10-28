@@ -1,4 +1,6 @@
 import os
+import sys
+from pathlib import Path
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,6 +10,9 @@ import logging
 import sys
 from pathlib import Path
 from app.db.init_db import init_db
+
+# Add the parent directory to Python path
+sys.path.append(str(Path(__file__).parent.parent))
 
 # Add the parent directory to Python path
 sys.path.append(str(Path(__file__).parent.parent))
